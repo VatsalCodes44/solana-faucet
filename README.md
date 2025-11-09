@@ -5,11 +5,7 @@ A simple **Solana Faucet** built with **Next.js**, **TypeScript**, and the **Sol
 > ⚠️ **Note:** This faucet only works on the Solana **Devnet** — it does **not** send real $SOL.
 
 ---
-
-## 🖼️ Project Screenshot
-
 ![Solana Wallet](https://github.com/VatsalCodes44/solana-faucet/blob/main/public/image.png)
-
 ---
 
 ## 🚀 Features
