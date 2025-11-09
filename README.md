@@ -14,7 +14,7 @@ A simple **Solana Faucet** built with **Next.js**, **TypeScript**, and the **Sol
 
 ## 🚀 Features
 
-- 🌐 Connect your wallet using **Phantom**, **Solflare**, or other supported wallets.
+- 🌐 Connect your wallet using **Phantom**, **Backpack**, **Metamask**, or other supported wallets.
 - 💸 Request **SOL airdrops** on the Solana **Devnet**.
 - 🔒 Automatically detects your connected wallet address.
 - ⚡ Real-time transaction confirmation.
