@@ -4,18 +4,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { WalletDisconnectButton, WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import { Keypair, LAMPORTS_PER_SOL, SystemProgram, Transaction } from "@solana/web3.js";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner"
 
 export const Faucet = () => {
     const { connection } = useConnection();
     const { publicKey, connected } = useWallet();
     const [sol, setSol] = useState<number>(1)
+    const [disabled, setDisabled] = useState(false)
     const onClick = useCallback(async () => {
+        setDisabled(true)
         if (!publicKey) return;
         try {
-            const signature = await connection.requestAirdrop(publicKey, sol*1e9)
+            const signature = await connection.requestAirdrop(publicKey, sol*1e9);
             toast.success("Airdrop Successful", {
               description: `Airdroped ${sol} SOL`,
               action: {
@@ -23,9 +24,9 @@ export const Faucet = () => {
                 onClick: () => console.log("Undo"),
               },
             })
-            await connection.confirmTransaction(signature, "confirmed");
         }
         catch (e) {
+            console.log(e,"hiiiiiiiiiiiiiiiii")
             toast.error("You have reached your airdrop limit", {
               description: "Maximum of 2 requests every 8 hours",
               action: {
@@ -33,7 +34,9 @@ export const Faucet = () => {
                 onClick: () => console.log("Undo"),
               },
             })
-
+        }
+        finally {
+            setDisabled(false)
         }
     }, [publicKey, connection]);
     return (
@@ -67,13 +70,16 @@ export const Faucet = () => {
                         : "Disconnect"}
                     </WalletDisconnectButton>
                 )}
-                <Button onClick={onClick} className="w-fit" disabled={!publicKey}>
+                <Button onClick={onClick} className={`${disabled ? "cursor-not-allowed" : ""} w-fit`} disabled={!publicKey && disabled}>
                     Send SOL
                 </Button>
             </div>
             
             <div>
-                Made with ♥ by VatsalCodes44
+                Made with ♥ by 
+                <a className="hover:underline " href="https://github.com/VatsalCodes44/solana-faucet" >
+                    {` VatsalCodes44`}
+                </a>
             </div>
         </div>
     );
